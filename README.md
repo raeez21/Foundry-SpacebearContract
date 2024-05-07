@@ -65,3 +65,12 @@ $ anvil --help
 $ cast --help
 ```
 # Foundry-SpacebearContract
+
+Foundry is written in Rust, not dependent on JavaScript at all. After you intiialse a Foundry project it creates the following folders:
+1. src folder - contains all the contracts
+2. script folder - for deployement
+3. lib folder - dependencies are added as git submodules into this folder
+
+Everything (tests, deploye scripts etc) in foundry is solidity files (not JS files like Hardhat/Truffle). Project is configured using the foundry.toml file. After building, the contract artifacts are in the out folder.
+
+
