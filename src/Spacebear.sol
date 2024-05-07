@@ -1,14 +1,13 @@
 // SPDX-License-Identifier: MIT
 // Compatible with OpenZeppelin Contracts ^5.0.0
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.4;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "openzeppelin-contracts/contracts/token/ERC721/ERC721.sol";
 // import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 //WE GENERATE TOKEN_URI BASED ON TOKEN ID
-import "@openzeppelin/contracts/access/Ownable.sol";
-// import "@ganache/console.log/console.sol";
-import "hardhat/console.sol";
-// import "../node_modules/hardhat/console.sol";
+import "openzeppelin-contracts/contracts/access/Ownable.sol";
+// import "openzepplin-contracts/contracts/utils/Counters.sol";
+import "openzeppelin-contracts/contracts/utils/Strings.sol";
 
 
 contract Spacebear is ERC721, Ownable {
@@ -24,14 +23,13 @@ contract Spacebear is ERC721, Ownable {
     }
     function buyToken() public payable{
         uint256 tokenId = _nextTokenId - 1;
-        console.log("AT HERE: ",tokenId, msg.value);
         require(msg.value == tokenId * 0.1 ether, "Wrong amout of funds sent"); //First token sold for 0.1 eth, second token for 0.2 eth, third one for 0.3 eth and so on
         _safeMint(msg.sender, tokenId);
     }
     function safeMint(address to) public onlyOwner {
         
         uint256 tokenId = _nextTokenId++;
-        console.log("AT HERE: ",tokenId);
+        
         _safeMint(to, tokenId);
         // _setTokenURI(tokenId, uri);
     }
@@ -45,7 +43,7 @@ contract Spacebear is ERC721, Ownable {
         returns (string memory)
     {
         // return super.tokenURI(tokenId);
-        return string(abi.encodePacked(_baseURI(),"spacebear_", (tokenId+1), ".json"));
+        return string(abi.encodePacked(_baseURI(),"spacebear_", Strings.toString(tokenId+1), ".json"));
     }
 
     function supportsInterface(bytes4 interfaceId)
